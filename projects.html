@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>项目 - 詹飞天</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  
+<nav class="nav">
+  <a href="index.html">首页</a>
+  <a href="sitemap.html">网站地图</a>
+  <a href="about.html">关于我</a>
+  <a href="projects.html">项目</a>
+  <a href="contact.html">联系</a>
+</nav>
+
+  <section class="section fade-in">
+    
+<h2>项目</h2>
+<ul>
+  <li onclick="openImage('assets/hydrogen-car.jpg')" style="cursor:pointer; color:#007BFF;">
+    氢能源车数据传输 Dashboard 设计 (点击查看图片)
+    <ul>
+      <li>使用 Python/Matlab 可视化氢燃料车实时数据</li>
+      <li>包含数据采集、通信协议与前端展示</li>
+    </ul>
+  </li>
+  <li>
+    自制无人机及维护维修
+    <ul>
+      <li>自行搭建 FPV 无人机，调试飞控与传感器</li>
+      <li>定期维护和升级部件，支持航拍与竞速</li>
+    </ul>
+  </li>
+</ul>
+
+<!-- 弹窗 -->
+<div id="imgModal" class="modal">
+  <span class="close" onclick="closeImage()">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
+
+    
+<div class="back-home">
+  <a href="index.html">⬅ 返回首页</a>
+</div>
+<footer class="footer">
+  © 2025 Feitian Zhan
+</footer>
+
+  </section>
+</body>
+</html>

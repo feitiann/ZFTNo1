@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>网站地图 - 詹飞天</title>
+  <style>
+    body { margin:0; font-family:Arial, sans-serif; }
+    svg { width:100%; height:100vh; }
+    .node circle { stroke:#333; stroke-width:1.5px; cursor:pointer; }
+    .node text { font-size:14px; pointer-events:none; }
+    .link { stroke:#999; stroke-opacity:0.6; }
+  </style>
+</head>
+<body>
+  <svg></svg>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    const nodes = [
+      {id:"首页", url:"index.html", color:"#0073e6"},
+      {id:"网站地图", url:"sitemap.html", color:"#2196F3"},
+      {id:"关于我", url:"about.html", color:"#4CAF50"},
+      {id:"项目", url:"projects.html", color:"#FF9800"},
+      {id:"联系", url:"contact.html", color:"#F44336"}
+    ];
+    const links = [
+      {source:"首页", target:"网站地图"},
+      {source:"首页", target:"关于我"},
+      {source:"首页", target:"项目"},
+      {source:"首页", target:"联系"}
+    ];
+    const svg = d3.select("svg");
+    const width = window.innerWidth, height = window.innerHeight;
+
+    const simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(links).id(d => d.id).distance(200))
+      .force("charge", d3.forceManyBody().strength(-500))
+      .force("center", d3.forceCenter(width / 2, height / 2));
+
+    const link = svg.append("g")
+      .attr("class", "links")
+      .selectAll("line")
+      .data(links)
+      .enter().append("line")
+      .attr("class", "link");
+
+    const node = svg.append("g")
+      .attr("class", "nodes")
+      .selectAll("g")
+      .data(nodes)
+      .enter().append("g")
+      .attr("class", "node")
+      .on("click", (event, d) => { window.location.href = d.url; });
+
+    node.append("circle")
+      .attr("r", 40)
+      .attr("fill", d => d.color);
+
+    node.append("text")
+      .attr("text-anchor", "middle")
+      .attr("dy", 5)
+      .attr("fill", "#fff")
+      .text(d => d.id);
+
+    simulation.on("tick", () => {
+      link
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+
+      node.attr("transform", d => `translate(${d.x},${d.y})`);
+    });
+  </script>
+</body>
+</html>
